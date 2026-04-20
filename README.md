@@ -13,4 +13,4 @@ Setup:
 2. Edit index.html
 3. Deploy
 
-And more [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/404leak)
+And more : [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/404leak)
