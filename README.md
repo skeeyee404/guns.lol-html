@@ -12,5 +12,3 @@ Setup:
 1. Clone the repository
 2. Edit index.html
 3. Deploy
-
-Goal: Provide a simple, clean and high-performance personal bio/link page.
