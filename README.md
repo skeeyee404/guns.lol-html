@@ -6,7 +6,6 @@ Features:
 - Fully customizable
 - Social links support
 - Lightweight and fast
-- Easy deployment (GitHub Pages / Vercel / Netlify)
 
 Setup:
 1. Clone the repository
