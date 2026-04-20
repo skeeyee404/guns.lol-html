@@ -12,4 +12,5 @@ Setup:
 1. Clone the repository
 2. Edit index.html
 3. Deploy
-[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/xxxx)
+
+And more [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/404leak)
