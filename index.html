@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>SkeeYee</title> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+  body, html { margin:0; padding: 0; width: 100%; height: 100%; overflow:hidden; background-color: #000; font-family: 'Poppins', sans-serif; }
+  
+  /* WhatsApp Pop - Fixed Sizes */
+  #pop_wa {
+    position: fixed; z-index: 999;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    display: none; width: 440px;
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 30px 0; text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 70px rgba(0,0,0,0.8);
+  }
+
+  #pop_wa h2 { 
+    margin: 0 0 15px 0; color: #fff; 
+    font-size: 15px; font-weight: 400; letter-spacing: 0.5px; opacity: 0.9;
+  }
+  
+  .sep { height: 1px; width: 70%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); margin: 0 auto 25px auto; }
+  
+  .f-row { display: flex; justify-content: center; gap: 40px; align-items: center; }
+  
+  .f-img { 
+    width: 100px; height: 65px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); 
+    cursor: pointer; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  .f-img:hover { transform: scale(1.1); border-color: #fff; box-shadow: 0 8px 25px rgba(255,255,255,0.15); }
+
+  #bg_blur { 
+    display: none; position: fixed; inset: 0; 
+    background: rgba(0,0,0,0.5); 
+    backdrop-filter: blur(6px); z-index: 990; 
+  }
+
+  /* Audio & Info */
+  .sp-box { display: flex; flex-direction: column; justify-content: center; text-align: left; line-height: 1.2; }
+  .tr-name { font-weight: 500; font-size: 14px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+  .ar-name { font-size: 12px; color: rgba(255,255,255,0.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Social Colors */
+  .icon.discord:hover { background: #5865F2; border-color: #5865F2; box-shadow: 0 0 18px rgba(88,101,242,0.6); }
+  .icon.spotify:hover { background: #1DB954; border-color: #1DB954; box-shadow: 0 0 18px rgba(29,185,84,0.6); }
+  .icon.instagram:hover { background: #C13584; border-color: #C13584; box-shadow: 0 0 18px rgba(193,53,132,0.6); }
+  .icon.twitter:hover { background: #000; border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.4); } 
+  .icon.tiktok:hover { background: #6e5494; border-color: #6e5494; box-shadow: 0 0 18px rgba(110,84,148,0.6); color: #fff; }
+  .icon.github:hover { background: #2c3e50; border-color: #2c3e50; box-shadow: 0 0 18px rgba(44,62,80,0.6); }
+  .icon.whatsapp:hover { background: #25D366; border-color: #25D366; box-shadow: 0 0 18px rgba(37,211,102,0.6); }
+
+  /* 3D Core */
+  .wrap { perspective: 800px; }
+  .card { transform-style: preserve-3d; }
+  .presence { 
+    transform: translateZ(120px); 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7); 
+    transform-style: preserve-3d; 
+    background: rgba(0,0,0,0.6); 
+    backdrop-filter: blur(10px); 
+  }
+
+  /* ====================== ZİYARETÇİ SAYACI ====================== */
+  #visitor-counter {
+    position: fixed; bottom: 25px; right: 25px; z-index: 10000;
+    background: rgba(20,20,20,0.85); color: #fff;
+    padding: 10px 18px; border-radius: 50px; font-size: 14px; font-weight: 500;
+    backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  }
+</style>
+</head>
+<body>
+
+  <div id="ent_ov" class="overlay"><h1>Click Here</h1></div>
+  
+  <video id="v1" class="bg-video" src="https://cdn.discordapp.com/attachments/1463991752670056524/1493890842601984000/ABUGAT_-_YILIN_MALI_Official_Video.mp4?ex=69e1ef44&is=69e09dc4&hm=385817aa3b9d41c63818cd31e3120cf69014fe297113cddfbee7e98ca41c8cf9&" preload="auto" loop playsinline crossorigin="anonymous"></video>
+  <div class="bg-dim"></div>
+
+  <main class="wrap" data-discord-id="1461677975291429027">
+    <section class="card" id="main_c">
+      <img id="p_img" class="avatar" src="assets/profile.png" alt="profile">
+      
+      <h1 class="nick">SkeeYee</h1>
+
+      <div class="presence" id="stat_box">
+        <img id="stat_img" class="p-avatar" src="assets/profile.png" alt="">
+        <div class="p-text">
+          <div id="txt1">Loading...</div>
+          <div id="txt2"></div>
+        </div>
+        <span class="status-dot" id="dot"></span>
+      </div>
+
+      <nav class="icons">
+        <button class="icon btn-copy discord" id="cp_disc"><i class="fa-brands fa-discord"></i></button>
+        <a class="icon spotify" href="https://open.spotify.com/user/316bkwdwzr3ziovjd52hgb3b5aaa" target="_blank"><i class="fa-brands fa-spotify"></i></a>
+        <a class="icon instagram" href="https://www.instagram.com/skeeyee/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a class="icon twitter" href="https://x.com/skeeyee_00" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+        <a class="icon tiktok" href="https://www.tiktok.com/@SkeeYee" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+        <a class="icon github" href="https://github.com/skeeyee404" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <button id="btn_wa" class="icon whatsapp"><i class="fa-brands fa-whatsapp"></i></button>
+      </nav>
+    </section>
+  </main>
+
+  <div id="notif" class="toast">Copied!</div>
+
+  <div id="pop_wa">
+    <h2>Hangi numarayı kopyalamak istersin?</h2>
+    <div class="sep"></div>
+    <div class="f-row">
+      <img id="f_tr" class="f-img" src="https://flagcdn.com/tr.svg" alt="TR">
+      <img id="f_uk" class="f-img" src="https://flagcdn.com/gb.svg" alt="GB">
+    </div>
+  </div>
+  <div id="bg_blur"></div>
+
+  <div id="audio_ui" class="volume-control">
+    <i class="fa-solid fa-volume-high"></i>
+    <input type="range" id="vol_in" min="0" max="1" step="0.01" value="1">
+  </div>
+
+  <!-- ====================== ZİYARETÇİ SAYACI ====================== -->
+  <div id="visitor-counter">
+    <i class="fa-solid fa-eye" style="color: #43b581;"></i>
+    Ziyaretçi: 
+    <span id="visitor-count" style="font-weight: 600; min-width: 45px; text-align: center;">1428</span>
+  </div>
+
+  <script>
+    var ov = document.getElementById('ent_ov');
+    var vid = document.getElementById('v1');
+    var aBox = document.getElementById('audio_ui');
+    var slider = document.getElementById('vol_in');
+    
+    if(aBox) aBox.style.display = 'none';
+
+    ov.onclick = function() {
+        var self = this;
+        self.style.transition = 'opacity .4s ease';
+        self.style.opacity = '0';
+        self.style.pointerEvents = 'none';
+        
+        setTimeout(function(){ 
+            if(self.parentNode) self.parentNode.removeChild(self); 
+        }, 400);
+
+        if(aBox) aBox.style.display = 'flex';
+        
+        if(vid) {
+            vid.muted = false;
+            vid.currentTime = 0;
+            vid.volume = 1;
+            vid.play();
+        }
+    };
+
+    if(slider && vid) {
+        slider.oninput = function() {
+            vid.volume = this.value;
+            vid.muted = false;
+        };
+    }
+
+    // Manual Tilt Effect
+    var cEl = document.getElementById('main_c');
+    var pEl = document.getElementById('stat_box');
+    var cx = 0, cy = 0, tx = 0, ty = 0;
+
+    function renderLoop() {
+        cx += (tx - cx) * 0.15;
+        cy += (ty - cy) * 0.15;
+        
+        if(cEl) cEl.style.transform = "rotateX(" + cx + "deg) rotateY(" + cy + "deg)";
+        
+        if(pEl) {
+            var px = -(cx / 3);
+            var py = -(cy / 3);
+            var mx = -cy * 0.4;
+            var my = -cx * 0.4;
+            pEl.style.transform = "translateZ(120px) translateX(" + mx + "px) translateY(" + my + "px) rotateX(" + px + "deg) rotateY(" + py + "deg)";
+        }
+        requestAnimationFrame(renderLoop);
+    }
+    renderLoop();
+
+    document.onmousemove = function(e) {
+        var w = window.innerWidth / 2;
+        var h = window.innerHeight / 2;
+        var x = (e.clientX - w) / w;
+        var y = (e.clientY - h) / h;
+        
+        var d = Math.sqrt(x*x + y*y);
+        var lim = 8 + (17 * Math.max(0, 1 - (d * 0.6)));
+        
+        tx = -y * lim;
+        ty = x * lim;
+    };
+
+    // ====================== DISCORD LANYARD ======================
+    var dID = document.querySelector('.wrap').getAttribute('data-discord-id');
+    
+    if(dID) {
+        var sock = new WebSocket('wss://api.lanyard.rest/socket');
+        
+        sock.onopen = function() {
+            sock.send(JSON.stringify({ op: 2, d: { subscribe_to_id: dID } }));
+        };
+        
+        sock.onmessage = function(e) {
+            var j = JSON.parse(e.data);
+            if(j.t === 'INIT_STATE' || j.t === 'PRESENCE_UPDATE') {
+                doUpdate(j.d);
+            }
+        };
+    }
+
+    function doUpdate(d) {
+        var dot = document.getElementById('dot');
+        var img = document.getElementById('stat_img');
+        var t1 = document.getElementById('txt1');
+        var t2 = document.getElementById('txt2');
+
+        if (d.spotify) {
+            img.src = d.spotify.album_art_url;
+            t1.innerHTML = '<i class="fa-brands fa-spotify" style="color:#1DB954;margin-right:6px"></i><span style="color:#1DB954;font-weight:600">Spotify</span>';
+            var art = d.spotify.artist.replace(/;/g, ",");
+            t2.innerHTML = `<div class="sp-box">
+                <div class="tr-name">${d.spotify.song}</div>
+                <div class="ar-name">${art}</div>
+            </div>`;
+        } 
+        else {
+            if (d.discord_user) {
+                if (d.discord_user.avatar) {
+                    img.src = `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${d.discord_user.avatar}.png?size=128`;
+                } else {
+                    const discriminator = parseInt(d.discord_user.id) % 5;
+                    img.src = `https://cdn.discordapp.com/embed/avatars/${discriminator}.png`;
+                }
+            }
+
+            const cols = { online:'#43b581', idle:'#faa61a', dnd:'#f04747', offline:'#747f8d' };
+            const statColor = cols[d.discord_status] || cols.offline;
+            if(dot) dot.style.backgroundColor = statColor;
+
+            const statusNames = {
+                'online': 'Online', 
+                'idle': 'Idle', 
+                'dnd': 'Do Not Disturb', 
+                'offline': 'Offline'
+            };
+            const sText = statusNames[d.discord_status] || 'Offline';
+            t1.innerHTML = `<span style="color:${statColor}; font-weight:600;">${sText}</span>`;
+
+            t2.innerHTML = `<div class="sp-box">
+                <div class="tr-name">SkeeYee</div>
+                <div class="ar-name">aponun anasını sikeyim</div>
+            </div>`;
+        }
+    }
+
+    // Discord ID Kopyalama
+    var cBtn = document.getElementById("cp_disc");
+    var notif = document.getElementById("notif");
+    
+    if(cBtn) {
+        cBtn.onclick = function() {
+            navigator.clipboard.writeText("skeeyee0631");
+            
+            if(notif) {
+                notif.innerText = "Copied!";
+                notif.className = "toast show";
+                setTimeout(() => { notif.className = "toast"; }, 1500);
+            }
+        };
+    }
+
+    // WhatsApp Pop-up
+    var waB = document.getElementById('btn_wa');
+    var waP = document.getElementById('pop_wa');
+    var waD = document.getElementById('bg_blur');
+    
+    function closeWa() {
+        waP.style.display = 'none';
+        waD.style.display = 'none';
+    }
+    
+    function copyWa(n) {
+        navigator.clipboard.writeText(n);
+        closeWa();
+        if(notif) {
+            notif.innerText = "Copied!";
+            notif.className = "toast show";
+            setTimeout(() => { notif.className = "toast"; }, 1500);
+        }
+    }
+
+    if(waB) waB.onclick = () => { waP.style.display = 'block'; waD.style.display = 'block'; };
+    if(waD) waD.onclick = closeWa;
+    
+    var f1 = document.getElementById('f_tr');
+    var f2 = document.getElementById('f_uk');
+    
+    if(f1) f1.onclick = () => copyWa('+90 530 858 19 37');
+    if(f2) f2.onclick = () => copyWa('+44 7XX XXX XXXX');
+  </script>
+</body>
+</html>
